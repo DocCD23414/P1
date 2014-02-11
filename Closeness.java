@@ -44,7 +44,7 @@ public class Closeness
 
 			int dist = sonic.getDistance();
 
-			pilot.setTravelSpeed(dist - 6);
+			pilot.setTravelSpeed(dist - 6); //keeps robot a set distance away from an obstacle
 
 
 			if (Button.ENTER.isDown() || Button.ESCAPE.isDown()
@@ -60,7 +60,7 @@ public class Closeness
 
 	}
 
-//emma sucks
+
 
 	public static void main(String[] args)
 	{
