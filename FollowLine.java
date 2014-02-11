@@ -9,8 +9,8 @@ import lejos.util.Delay;
 
 public class FollowLine {
 	private DifferentialPilot pilot;
-	private LightSensor left = new LightSensor(SensorPort.S2);
-	private LightSensor right = new LightSensor(SensorPort.S1);
+	private LightSensor left = new LightSensor(SensorPort.S2); //two light sensors that should stay on
+	private LightSensor right = new LightSensor(SensorPort.S1);// either side of the line
 
 	public FollowLine(double x, double y) {
 		pilot = new DifferentialPilot(x, y, Motor.B, Motor.C);
@@ -31,11 +31,11 @@ public class FollowLine {
 		while (pilot.isMoving()) {
 			int leftvalue = left.getNormalizedLightValue();
 			int rightvalue = right.getNormalizedLightValue();
-			if (leftvalue < 450) {
+			if (leftvalue < 450) {//left sensor over black line, needs to turn left
 				pilot.rotate(-36.0);
 				pilot.forward();
 			}
-			if (rightvalue < 450) {
+			if (rightvalue < 450) {//right sensor over black line, needs to turn right
 				pilot.rotate(36.0);
 				pilot.forward();
 			}
@@ -62,21 +62,21 @@ public class FollowLine {
 		while (pilot.isMoving()) {
 			int leftvalue = left.getNormalizedLightValue();
 			int rightvalue = right.getNormalizedLightValue();
-			if (leftvalue < 450 && rightvalue > 450) {
+			if (leftvalue < 450 && rightvalue > 450) {//left sensor over black line, needs to turn left
 				pilot.setRotateSpeed(200.0);
 				pilot.rotate(-36.0);
 				pilot.setRotateSpeed(60.0);
 				pilot.forward();
 			}
-			if (rightvalue < 450 && leftvalue > 450) {
+			if (rightvalue < 450 && leftvalue > 450) {//right sensor over black line, needs to turn right
 				pilot.setRotateSpeed(200.0);
 				pilot.rotate(36.0);
 				pilot.setRotateSpeed(60.0);
 				pilot.forward();
 			}
-			if (leftvalue < 450 && rightvalue < 450) {
+			if (leftvalue < 450 && rightvalue < 450) {//both sensors over black line -> junction
 				Random random = new Random();
-				int turn = random.nextInt(3);
+				int turn = random.nextInt(3);//randomly choose left, right or forward
 				if (turn == 0) {
 					pilot.setRotateSpeed(200.0);
 					pilot.travel(5.0);
