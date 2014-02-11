@@ -60,7 +60,7 @@ public class Closeness
 
 	}
 
-
+//emma sucks
 
 	public static void main(String[] args)
 	{
